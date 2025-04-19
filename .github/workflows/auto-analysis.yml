@@ -57,7 +57,6 @@ jobs:
           echo "最新のエポック: $latest_epoch"
           echo "分析対象エポック: $previous_epoch"
           python analyze_stake_changes.py $previous_epoch
-          python scripts/analyze_top_priority.py $previous_epoch
           echo "epoch=$previous_epoch" >> $GITHUB_OUTPUT
           echo "status=success" >> $GITHUB_OUTPUT
           # 分析結果ファイルのパスを設定
