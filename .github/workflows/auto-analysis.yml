@@ -6,109 +6,86 @@ on:
   workflow_dispatch:  # 手動実行も可能
 
 jobs:
-  analyze:
+  check-and-analyze:
     runs-on: ubuntu-latest
-    environment: production  # 環境を指定
-    
     steps:
-    - name: リポジトリのチェックアウト
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0  # 全履歴を取得
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 全履歴を取得
 
-    - name: Git設定
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git remote add upstream https://github.com/marinade-finance/ds-sam-pipeline.git
+      - name: 実行時刻の設定
+        id: datetime
+        run: echo "now=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
 
-    - name: データの更新確認
-      id: check_updates
-      run: |
-        if ! bash scripts/update_analysis.sh; then
-          echo "更新すべきデータがありません"
-          echo "status=no_updates" >> $GITHUB_OUTPUT
-          exit 0
-        fi
-        echo "status=has_updates" >> $GITHUB_OUTPUT
+      - name: データ更新の確認
+        id: check_updates
+        run: |
+          source scripts/update_analysis.sh
+          if [ $? -eq 0 ]; then
+            echo "更新なし"
+            exit 0
+          fi
 
-    - name: Pythonのセットアップ
-      if: steps.check_updates.outputs.status == 'has_updates'
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-        cache: 'pip'
+      - name: Slack通知（更新なし）
+        if: steps.check_updates.outcome == 'success' && steps.check_updates.conclusion == 'success'
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "データ更新チェック完了",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*データ更新チェック完了*\n- 実行時刻: ${{ steps.datetime.outputs.now }}\n- 結果: 新しいデータの更新はありません"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-    - name: 依存関係のインストール
-      if: steps.check_updates.outputs.status == 'has_updates'
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Slack通知（更新あり）
+        if: steps.check_updates.outcome == 'failure'
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "データ更新検出",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*新しいデータの更新を検出*\n- 実行時刻: ${{ steps.datetime.outputs.now }}\n- 結果: 新しいデータの更新があります"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-    - name: データ分析
-      id: analysis
-      if: steps.check_updates.outputs.status == 'has_updates'
-      run: |
-        # 最新のエポック番号を取得（.で始まるディレクトリを除外）
-        latest_epoch=$(ls -1 auctions/ | grep -v "^\." | cut -d'.' -f1 | sort -n | tail -n1)
-        if [ ! -z "$latest_epoch" ]; then
-          # 1つ前のエポックで分析を実行
-          previous_epoch=$((latest_epoch - 1))
-          echo "最新のエポック: $latest_epoch"
-          echo "分析対象エポック: $previous_epoch"
-          python analyze_stake_changes.py $previous_epoch
-          echo "epoch=$previous_epoch" >> $GITHUB_OUTPUT
-          echo "status=success" >> $GITHUB_OUTPUT
-          # 分析結果ファイルのパスを設定
-          echo "result_file=analysis_results/stake_changes_epoch_${previous_epoch}.md" >> $GITHUB_OUTPUT
-        else
-          echo "エポックディレクトリが見つかりません"
-          echo "status=error" >> $GITHUB_OUTPUT
-          exit 1
-        fi
-
-    - name: 変更をコミット
-      if: steps.check_updates.outputs.status == 'has_updates'
-      run: |
-        current_time=$(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M:%S')
-        git add analysis_results/
-        git commit -m "自動分析の更新: $current_time" || echo "変更なし"
-        git push origin main || echo "プッシュする変更なし"
-
-    - name: 実行時刻の設定
-      id: datetime
-      run: |
-        echo "now=$(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
-
-    - name: Slack通知（成功）
-      if: success() && steps.analysis.outputs.status == 'success'
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        payload: |
-          {
-            "text": ":white_check_mark: 自動分析が完了しました\n- 分析エポック: ${{ steps.analysis.outputs.epoch }}\n- 実行時刻: ${{ steps.datetime.outputs.now }}\n- ワークフロー: ${{ github.workflow }}\n- 実行URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\n- 分析結果: ${{ github.server_url }}/${{ github.repository }}/blob/main/${{ steps.analysis.outputs.result_file }}"
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-    - name: Slack通知（更新なし）
-      if: success() && steps.check_updates.outputs.status == 'no_updates'
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        payload: |
-          {
-            "text": ":information_source: 新しいデータの更新はありませんでした\n- 実行時刻: ${{ steps.datetime.outputs.now }}\n- ワークフロー: ${{ github.workflow }}"
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-    - name: Slack通知（失敗）
-      if: failure()
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        payload: |
-          {
-            "text": ":x: 自動分析が失敗しました\n- 実行時刻: ${{ steps.datetime.outputs.now }}\n- ワークフロー: ${{ github.workflow }}\n- エラー詳細: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
+      - name: Slack通知（エラー）
+        if: failure()
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "ワークフロー実行エラー",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*ワークフロー実行中にエラーが発生*\n- 実行時刻: ${{ steps.datetime.outputs.now }}\n- 詳細: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} 
