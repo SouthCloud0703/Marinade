@@ -1,14 +1,14 @@
 # エポック770のバリデータ分析結果
 
 ## 分析実行日時
-2025-04-19 09:05:04
+2025-04-20 01:32:53 JST
 
 ## 全体サマリー
 ### ステーク優先度上位バリデータ（Priority 1-100）
 - 合計増加量: +489,274.538 SOL
 
 ### アンステーク優先度上位バリデータ（Top 100）
-- 合計減少量: 446,973.344 SOL
+- 合計減少量: 446,980.403 SOL
 
 ## ステーク優先度上位バリデータ一覧
 | バリデータ | 優先度 | 変更量(SOL) | marinadeSamTargetSol(E770) | 入札額(CPMPE) |
@@ -213,15 +213,16 @@
 | 8HKqT579dAjdTy86zKUs8kAaGDHXY11wDC3ohGCkLSQH | 57 | -9.323 | 18,314.542 | 0.008 | 0.429 |
 | GSaWJ4FjXQ3RGctXaBdcW9oh939cwxXUeeV9A9d4shvf | 58 | -8.784 | 131,319.217 | 0.001 | 0.421 |
 | 3tjGkvUsNEk8UBUQECCTpeAoo6NovHvEG44MZDPCcZko | 59 | -8.305 | 51,101.045 | 0.005 | 0.425 |
-| 1Dadio3JRvpEjY6iSmXmhbGy9RiU8Nxh2GmoVbNusbE | 60 | -7.004 | 7.004 | 0.155 | 0.595 |
-| A5bb5dNaqnVZBWxRNRW8UjsYZrybGkZM6snxGMaSxDg1 | 61 | -7.001 | 7.001 | 0.415 | 0.860 |
-| HMLfMHdETcGSqPGAr38rSiwewsSZvLPMMPALc5pggtiW | 62 | -6.915 | 29,761.339 | 0.002 | 0.422 |
-| 1KXz4xKV2viJCGpxqnQqdf2J45vQr5USdmtcJLTaHkm | 63 | -6.736 | 6.736 | 0.154 | 0.594 |
-| ABs7XJAwHJpmBfC2y677bH5jzNtt5cAxXc14Q5bWgQRd | 64 | -1.805 | 61,827.994 | 0.010 | 0.430 |
-| CrLn7zEBytbmRBUGhkDyyUbGCa6H7bMCnw94Dip8QbcJ | 65 | -1.013 | 1.013 | 0.000 | 0.440 |
-| GRWCUtxwiSLtLGERyNyZymr77NJdko2HdDHxpVcJz6E9 | 66 | -1.003 | 1.003 | 0.233 | 0.673 |
-| BLADE1qNA1uNjRgER6DtUFf7FU3c1TWLLdpPeEcKatZ2 | 67 | -1.002 | 1.002 | 0.000 | 0.394 |
-| i6PZjkPHGYmPfPE8LsJuLn5huZyusXhmysiDiHGPjxb | 68 | -0.728 | 1,792.139 | 0.250 | 0.690 |
+| THWfRpcJSC7oDrNMSCcixTZmCHVBTEVQL4qnd1UTD1x | 60 | -7.059 | 7.059 | 0.000 | 0.440 |
+| 1Dadio3JRvpEjY6iSmXmhbGy9RiU8Nxh2GmoVbNusbE | 61 | -7.004 | 7.004 | 0.155 | 0.595 |
+| A5bb5dNaqnVZBWxRNRW8UjsYZrybGkZM6snxGMaSxDg1 | 62 | -7.001 | 7.001 | 0.415 | 0.860 |
+| HMLfMHdETcGSqPGAr38rSiwewsSZvLPMMPALc5pggtiW | 63 | -6.915 | 29,761.339 | 0.002 | 0.422 |
+| 1KXz4xKV2viJCGpxqnQqdf2J45vQr5USdmtcJLTaHkm | 64 | -6.736 | 6.736 | 0.154 | 0.594 |
+| ABs7XJAwHJpmBfC2y677bH5jzNtt5cAxXc14Q5bWgQRd | 65 | -1.805 | 61,827.994 | 0.010 | 0.430 |
+| CrLn7zEBytbmRBUGhkDyyUbGCa6H7bMCnw94Dip8QbcJ | 66 | -1.013 | 1.013 | 0.000 | 0.440 |
+| GRWCUtxwiSLtLGERyNyZymr77NJdko2HdDHxpVcJz6E9 | 67 | -1.003 | 1.003 | 0.233 | 0.673 |
+| BLADE1qNA1uNjRgER6DtUFf7FU3c1TWLLdpPeEcKatZ2 | 68 | -1.002 | 1.002 | 0.000 | 0.394 |
+| i6PZjkPHGYmPfPE8LsJuLn5huZyusXhmysiDiHGPjxb | 69 | -0.728 | 1,792.139 | 0.250 | 0.690 |
 
 ## 補足情報
 - ステーク分析対象: stakePriorityが1-100のバリデータ

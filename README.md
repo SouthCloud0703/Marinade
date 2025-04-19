@@ -63,3 +63,34 @@ python analyze_stake_changes.py <epoch_number>
 - GitHub Actionsによる自動実行は現在無効化されています
 - 分析は手動で実行する必要があります
 - upstreamリポジトリからの更新は `auctions` ディレクトリのみを対象としています
+
+# Expected Stake Calculator
+
+バリデータの予想ステーク量を計算するツール
+
+## 使用方法
+
+```bash
+python scripts/calculate_expected_stake.py --bond <bond_amount> --bid <bid_amount>
+```
+
+### パラメータ
+
+- `--bond`: ボンド残高（SOL）
+- `--bid`: 入札額（CPMPE）
+
+### 実行例
+
+```bash
+python scripts/calculate_expected_stake.py --bond 1000 --bid 2
+```
+
+## 計算方法
+
+1. CPMPEからPMPEへの変換: `bid_pmpe = bid / 1000`
+2. ステークキャップの計算: `stake_cap = bond / (bid_pmpe + bid_pmpe)`
+
+## 注意事項
+
+- 入札額（bid）が0の場合はエラーとなります
+- 小数点以下2桁まで計算されます
