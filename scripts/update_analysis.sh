@@ -3,14 +3,17 @@
 # 仮想環境をアクティベート
 source .venv/bin/activate
 
-# upstreamの変更をチェック
+# upstreamから最新の変更を取得
 git fetch upstream main
 
-# auctions/ディレクトリの変更を確認
+# auctionsディレクトリに更新があるか確認
 if git diff --quiet upstream/main HEAD -- auctions/; then
-    echo "更新すべきデータがありません。"
+    echo "No updates found in auctions directory"
     exit 0
 fi
 
-# 変更があった場合、upstreamの変更を取得
-git pull upstream main
+# auctionsディレクトリのみを更新
+git checkout upstream/main -- auctions/
+
+# 更新があったことを示すために終了コード1を返す
+exit 1
