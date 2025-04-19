@@ -8,6 +8,7 @@ on:
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    environment: production  # 環境を指定
     
     steps:
     - name: リポジトリのチェックアウト
@@ -15,33 +16,39 @@ jobs:
       with:
         fetch-depth: 0  # 全履歴を取得
 
-    - name: Pythonのセットアップ
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-        cache: 'pip'
-
-    - name: 依存関係のインストール
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
     - name: Git設定
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git remote add upstream https://github.com/marinade-finance/ds-sam-pipeline.git
 
-    - name: データの更新と分析
-      id: analysis
+    - name: データの更新確認
+      id: check_updates
       run: |
-        # update_analysis.shの実行結果を変数に格納
         if ! bash scripts/update_analysis.sh; then
-          echo "新しいデータの更新はありません"
-          echo "::set-output name=status::no_updates"
+          echo "更新すべきデータがありません"
+          echo "status=no_updates" >> $GITHUB_OUTPUT
           exit 0
         fi
-        
+        echo "status=has_updates" >> $GITHUB_OUTPUT
+
+    - name: Pythonのセットアップ
+      if: steps.check_updates.outputs.status == 'has_updates'
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: 依存関係のインストール
+      if: steps.check_updates.outputs.status == 'has_updates'
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: データ分析
+      id: analysis
+      if: steps.check_updates.outputs.status == 'has_updates'
+      run: |
         # 最新のエポック番号を取得（.で始まるディレクトリを除外）
         latest_epoch=$(ls -1 auctions/ | grep -v "^\." | cut -d'.' -f1 | sort -n | tail -n1)
         if [ ! -z "$latest_epoch" ]; then
@@ -50,16 +57,17 @@ jobs:
           echo "最新のエポック: $latest_epoch"
           echo "分析対象エポック: $previous_epoch"
           python analyze_stake_changes.py $previous_epoch
-          echo "::set-output name=epoch::$previous_epoch"
-          echo "::set-output name=status::success"
+          python analyze_top_priority.py $previous_epoch
+          echo "epoch=$previous_epoch" >> $GITHUB_OUTPUT
+          echo "status=success" >> $GITHUB_OUTPUT
         else
           echo "エポックディレクトリが見つかりません"
-          echo "::set-output name=status::error"
+          echo "status=error" >> $GITHUB_OUTPUT
           exit 1
         fi
-        python scripts/analyze_top_priority.py
 
     - name: 変更をコミット
+      if: steps.check_updates.outputs.status == 'has_updates'
       run: |
         git add analysis_results/
         git commit -m "自動分析の更新: $(date '+%Y-%m-%d %H:%M:%S')" || echo "変更なし"
@@ -69,37 +77,31 @@ jobs:
       if: success() && steps.analysis.outputs.status == 'success'
       uses: slackapi/slack-github-action@v1.24.0
       with:
-        channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-        slack-message: |
-          :white_check_mark: 自動分析が完了しました
-          - 分析エポック: ${{ steps.analysis.outputs.epoch }}
-          - 実行時刻: $(date '+%Y-%m-%d %H:%M:%S')
-          - ワークフロー: ${{ github.workflow }}
-          - 実行URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        payload: |
+          {
+            "text": ":white_check_mark: 自動分析が完了しました\n- 分析エポック: ${{ steps.analysis.outputs.epoch }}\n- 実行時刻: $(date '+%Y-%m-%d %H:%M:%S')\n- ワークフロー: ${{ github.workflow }}\n- 実行URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
       env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     - name: Slack通知（更新なし）
-      if: success() && steps.analysis.outputs.status == 'no_updates'
+      if: success() && steps.check_updates.outputs.status == 'no_updates'
       uses: slackapi/slack-github-action@v1.24.0
       with:
-        channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-        slack-message: |
-          :information_source: 新しいデータの更新はありませんでした
-          - 実行時刻: $(date '+%Y-%m-%d %H:%M:%S')
-          - ワークフロー: ${{ github.workflow }}
+        payload: |
+          {
+            "text": ":information_source: 新しいデータの更新はありませんでした\n- 実行時刻: $(date '+%Y-%m-%d %H:%M:%S')\n- ワークフロー: ${{ github.workflow }}"
+          }
       env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     - name: Slack通知（失敗）
       if: failure()
       uses: slackapi/slack-github-action@v1.24.0
       with:
-        channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-        slack-message: |
-          :x: 自動分析が失敗しました
-          - 実行時刻: $(date '+%Y-%m-%d %H:%M:%S')
-          - ワークフロー: ${{ github.workflow }}
-          - エラー詳細: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        payload: |
+          {
+            "text": ":x: 自動分析が失敗しました\n- 実行時刻: $(date '+%Y-%m-%d %H:%M:%S')\n- ワークフロー: ${{ github.workflow }}\n- エラー詳細: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
       env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} 
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
