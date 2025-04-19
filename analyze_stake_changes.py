@@ -137,8 +137,16 @@ def get_top_100_by_unstake(data_current: Dict, data_next: Dict) -> List[str]:
                 None
             )
             if validator_next:
-                stake_current = float(validator.get('marinadeActivatedStakeSol', 0))
-                stake_next = float(validator_next.get('marinadeActivatedStakeSol', 0))
+                # Noneチェックを追加
+                marinadeActivatedStakeSol_current = validator.get('marinadeActivatedStakeSol')
+                marinadeActivatedStakeSol_next = validator_next.get('marinadeActivatedStakeSol')
+                
+                if marinadeActivatedStakeSol_current is None or marinadeActivatedStakeSol_next is None:
+                    print(f"Warning: Missing marinadeActivatedStakeSol data for validator {vote_account}")
+                    continue
+                
+                stake_current = float(marinadeActivatedStakeSol_current)
+                stake_next = float(marinadeActivatedStakeSol_next)
                 stake_change = stake_next - stake_current
                 if stake_change < 0:  # アンステークの場合のみ
                     all_changes.append((vote_account, stake_change))
@@ -252,7 +260,7 @@ def main():
         
         # Markdown形式で結果を保存
         markdown_content = generate_markdown_summary(df_stake, df_unstake, epoch)
-        markdown_file = os.path.join(analysis_dir, f"stake_changes_epoch_{epoch}.md")
+        markdown_file = os.path.join(analysis_dir, f"top_priority_epoch_{epoch}.md")
         with open(markdown_file, "w") as f:
             f.write(markdown_content)
         
