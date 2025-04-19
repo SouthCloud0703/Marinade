@@ -1,6 +1,32 @@
-# Marinade Validator Analysis
+# Marinade SAM Pipeline データ分析
 
-Marinade Financeのバリデータデータを分析するためのツール群です。
+## 概要
+Marinade SAMのバリデータデータを分析するためのパイプライン
+
+## 自動更新の仕組み
+1. GitHub Actionsが6時間ごとに実行され、以下の処理を行います：
+   - upstreamリポジトリからの更新チェック
+   - 新しいデータがある場合は自動的にoriginリポジトリを更新
+   - 更新状況をSlackに通知
+
+2. 更新後の作業フロー
+   ```bash
+   # ローカルリポジトリの更新
+   git pull origin main
+
+   # 分析の実行
+   python analyze_stake_changes.py <エポック番号>
+   ```
+
+## 分析結果
+- 分析結果は `analysis_results/` ディレクトリに保存されます
+- ファイル名形式: `top_priority_epoch_<エポック番号>.md`
+
+## 通知内容
+Slackには以下の3パターンで通知されます：
+1. 更新なし：新しいデータがない場合
+2. 更新あり：新しいデータを検出した場合
+3. エラー：実行中にエラーが発生した場合
 
 ## セットアップ
 
