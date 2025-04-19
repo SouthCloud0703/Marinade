@@ -7,6 +7,7 @@ from typing import Dict, List, Tuple
 from glob import glob
 from pathlib import Path
 from datetime import datetime
+import pytz
 
 def ensure_directory_exists(directory):
     """ディレクトリが存在しない場合は作成"""
@@ -19,7 +20,8 @@ def format_sol(value):
 
 def generate_markdown_summary(df_stake: pd.DataFrame, df_unstake: pd.DataFrame, epoch: int) -> str:
     """分析結果のMarkdownサマリーを生成"""
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    jst = pytz.timezone('Asia/Tokyo')
+    now = datetime.now(jst).strftime("%Y-%m-%d %H:%M:%S")
     
     # 合計値の計算
     total_stake_increase = 0

@@ -1,114 +1,67 @@
-# DS SAM pipeline
+# Marinade Validator Analysis
 
-Solanaバリデータのオークション結果を分析するためのパイプライン
+Marinade Financeのバリデータデータを分析するためのツール群です。
 
-## セットアップ手順
+## セットアップ
 
-1. Python仮想環境の作成とアクティベート
+1. リポジトリのクローン
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
 ```
 
-2. 必要なパッケージのインストール
+2. 依存関係のインストール
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-## データ更新方法
-
-最新のオークションデータを取得して分析を実行するには：
+3. upstreamの設定
 ```bash
-./scripts/update_analysis.sh
+git remote add upstream https://github.com/marinade-finance/ds-sam-pipeline.git
 ```
 
-このスクリプトの動作：
-- リモートリポジトリの`auctions/`ディレクトリの変更を確認
-- 新しいデータがある場合のみ更新を実行
-- 分析スクリプトを実行し、CSVファイルを更新
+## 実行方法
 
-## 分析結果
+### GitHub Actionsワークフロー
 
-分析結果は以下のファイルに出力されます：
-- `analysis_results/epoch_755_to_latest_analysis.csv`
+1. 自動実行
+- 6時間ごとに自動的に実行されます
+- 新しいデータがある場合のみ分析を実行します
 
-このファイルには以下の情報が含まれます：
-- Epoch 755以降の全バリデータの詳細データ
-- 各エポックのバリデータ統計情報
-- 以下の主要指標：
-  - バリデータの基本情報（vote_account, client_version等）
-  - ステーク量（total_activated_stake_sol, marinade_activated_stake_sol）
-  - コミッション設定（inflation_commission, mev_commission）
-  - 入札情報（bid_pmpe, auction_effective_bid_pmpe）
-  - 適格性フラグ（sam_eligible, mnde_eligible）
-  - 優先度スコア（stake_priority, unstake_priority）
+2. 手動実行
+- GitHubリポジトリの「Actions」タブを開く
+- 「自動分析ワークフロー」を選択
+- 「Run workflow」ボタンをクリック
+- 「Run workflow」を再度クリックして実行
 
-## オークション実行の再現方法
+### ローカルでの実行
 
-1. `auctions/{epoch}.{slot}/inputs`ディレクトリから必要なファイルを取得
-2. 分析スクリプトを実行して結果を確認
-
-## バリデータトレンド分析
-
-大規模バリデータ（marinade_activated_stake_sol >= 100,000 SOL）の動向を分析するには：
+1. データの更新
 ```bash
-python scripts/analyze_validators_trend.py
+bash scripts/update_analysis.sh
 ```
+- upstreamからデータを取得します
+- 新しいデータがある場合のみ更新します
 
-このスクリプトは以下の分析を行います：
-- marinade_activated_stake_solが100,000 SOL以上のバリデータを抽出
-- 以下の指標の分布を計算：
-  - bid_pmpe
-  - bond_balance_sol
-  - stake_priority
-  - unstake_priority
-- marinade_activated_stake_sol上位10バリデータの詳細分析
-  - 各バリデータの全指標を1つの表にまとめて表示
-  - 直近10エポックの推移を表示（bid_pmpeが0の場合はスキップ）
-
-分析結果は以下のファイルに出力されます：
-- `analysis_results/latest_over200.csv`: 生データ
-- `analysis_results/latest_over200_analysis.md`: マークダウン形式のレポート
-
-## バリデータ詳細分析
-
-特定のバリデータの詳細な指標推移を分析するには：
+2. 分析の実行
 ```bash
-python scripts/analyze_validator_detail.py <vote_account>
+python analyze_stake_changes.py <epoch>
 ```
+- `<epoch>`: 分析対象のエポック番号
+- 例: `python analyze_stake_changes.py 772`
 
-このスクリプトは以下の分析を行います：
-- 指定されたバリデータの以下の指標を表示：
-  - marinade_activated_stake_sol
-  - marinade_sam_target_sol
-  - bond_balance_sol
-  - bid_pmpe
-  - stake_priority
-- 全エポックのデータを時系列で表示
+## 出力ファイル
 
-分析結果は以下のファイルに出力されます：
-- `analysis_results/validator_detail_<vote_account_last_8chars>.md`
+分析結果は以下の形式で保存されます：
+- パス: `analysis_results/top_priority_epoch_<epoch>.md`
+- 内容:
+  - ステーク優先度上位バリデータ（Priority 1-100）の分析
+  - アンステーク優先度上位バリデータ（Top 100）の分析
+  - 全体サマリー（増加量・減少量）
 
-## Stake Priority分析
+## Slack通知
 
-Stake Priorityの上位バリデータを分析するには：
-```bash
-python scripts/analyze_top_priority.py <epoch>
-```
-
-このスクリプトは以下の分析を行います：
-- 指定エポックのStake Priority 1-30位のバリデータを抽出
-- 各バリデータの以下の指標を表示：
-  - marinade_activated_stake_sol
-  - marinade_sam_target_sol
-  - bond_balance_sol
-  - bid_pmpe
-  - stake_priority
-  - 次エポックでのステーク増加量
-- サマリー情報として以下を表示：
-  - 対象バリデータの合計ステーク量
-  - 平均stake_priority
-  - 平均bid_pmpe
-
-分析結果は以下のファイルに出力されます：
-- `analysis_results/top_priority_epoch_<epoch>.md`
+GitHub Actionsワークフロー実行時に以下の通知が送信されます：
+- 分析完了時: 分析結果へのリンクを含む成功通知
+- 更新なし時: データ更新なしの通知
+- エラー発生時: エラー詳細へのリンクを含む失敗通知
