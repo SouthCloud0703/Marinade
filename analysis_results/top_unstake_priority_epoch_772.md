@@ -1,0 +1,107 @@
+# エポック772のアンステーク優先度上位バリデータ一覧
+
+## 分析実行日時
+2025-04-19 08:47:25
+
+## バリデータ一覧（優先度順）
+| バリデータ | 優先度 | 変更量(SOL) | marinadeSamTargetSol(E772) | 入札額(CPMPE) |
+|------------|--------|-------------|---------------------|---------------|
+| 5AC692spnjbegP7ttCXJEzUe8S81sLYsqJd8Ae6Zv1xU | 213 | -48,688.580 | 0.000 | 0.010 |
+| FqavJAnX2ioPssR7NkZnSU65fVLCr3AgnghuBKfSnePE | 226 | -44,703.009 | 0.000 | 0.002 |
+| 5okzFSJ474W7xZ75Xztdcvr4Kh61ZQzEW7eZisCdHxzc | 220 | -43,218.703 | 0.000 | 0.003 |
+| EHmh8op1wzbKeuRBk8UdWWB3vegwZWSZ5nnzWRKbDVoY | 218 | -38,579.889 | 0.000 | 0.010 |
+| 3nYnW8z3Aum5U6HiVLJkR71rauWPW2hyvngye4t25rPt | 225 | -37,140.415 | 0.000 | 0.005 |
+| GbC2vzt6S2HsUAJ46Qfh3aoG6oB9y3V4T7XD7914K5na | 222 | -32,345.553 | 0.000 | 0.004 |
+| DsT3eKbWAaX9wVZQYBsbkDwpFA9NTDtXfsYc9wXUEWpn | 232 | -25,676.107 | 0.000 | 0.000 |
+| FVhMWs3bbayWpUqDAbWUPH813gzFzJEo8fzhLhhkGstp | 122 | -24,900.254 | 0.000 | 0.160 |
+| BHuk6wv9pskvSuMxzAFksmFNxEWZDHDsYWSwvTKcCnhx | 226 | -23,006.856 | 0.000 | 0.002 |
+| AYSvheimgwhpRHXossLqrTBDPwo4jHDQJ1UhMeAArTwH | 221 | -22,104.504 | 0.000 | 0.006 |
+| 3ZUQekqiZoybB57y49eqtvSaoonqDwuNbeqEGwN88JkQ | 233 | -20,107.136 | 0.000 | 0.000 |
+| ErqEyaojEmRu8bhJz74mJy5MgQcyLN1rCQ5frrusAb8A | 229 | -18,769.326 | 0.000 | 0.001 |
+| 8DHFGo3fDB8GudbNLZEyExLzXQPwvY4twybPbxwDnffx | 215 | -13,749.719 | 0.000 | 0.011 |
+| SoLdWNZvT8f9293cELNBcPL3XLzsKCyG4AFmvqwXbmq | 80 | -12,169.841 | 60,480.442 | 0.330 |
+| DTDvrj1mKFv453DMAGRuFwg77DuLjsfVHnbLe5BJPL9D | 55 | -5,688.765 | 22,012.380 | 0.421 |
+| 4mUZWLYoo16fe2S2xZ1DdXZHBxynRWBAf3prokBQsxac | 223 | -5,308.205 | 0.000 | 0.004 |
+| GhBWWed6j9tXLEnKiw9CVDHyQCYunAVGnssrbYxbBmFm | 16 | -4,496.294 | 43,249.197 | 1.410 |
+| 5wP5Qm9frQfXY9QadZZHqgy6GEvqtHjpJ6uongxdb5gJ | 56 | -3,756.349 | 7,039.142 | 0.415 |
+| 8F4e1nbeC6hn9jkojtboERZGaafxUUtsqUy3MKJLohkh | 115 | -2,143.113 | 0.000 | 0.180 |
+| HxRrsnbc6K8CdEo3LCTrSUkFaDDxv9BdJsTDzBKnUVWH | 234 | -1,740.191 | 0.000 | 0.000 |
+| 6anBvYWGwkkZPAaPF6BmzF6LUPfP2HFVhQUAWckKH9LZ | 234 | -1,738.901 | 0.000 | 0.000 |
+| NoRDTy8jpkpjPR7yxahVdoEUPngbojPhFU5jb8TtY4m | 234 | -1,738.851 | 0.000 | 0.000 |
+| He4AUUbyUciqmWuAga11ucr2tM64GA3NqFXYEPmHPv6t | 121 | -1,660.516 | 0.000 | 0.164 |
+| 8xV77wuFP5BkMDdb1845hRRWZNbDNAbcV75BjMuViWpf | 277 | -1,473.773 | 0.000 | 0.010 |
+| EnRcbgr5r7EUS2P35szncy6TW6eWA9UQiU3yQRCDbh2P | 114 | -1,419.770 | 0.000 | 0.200 |
+| BXNW9ysAB9ksEDidcNWraaFkMeA88q6xzFRSyNnGvQYC | 119 | -1,299.898 | 0.000 | 0.170 |
+| C6o1toH7rriz2DocmgTw6JzFbJdLpQ9w2QsjeKQQinfZ | 224 | -1,001.341 | 0.000 | 0.004 |
+| 8EfUy8zz6DF2iTMQCUe4QAnoq4jVUzfU1yvZMCr2yJ7m | 126 | -885.832 | 0.000 | 0.160 |
+| 11aa3vsKxzxkcFX32VvCSA94bTa9EjKqUr8hfFgchjN | 25 | -708.297 | 6,468.119 | 1.000 |
+| 1234LB7uvDC23rdCQoK8C3jNwnovUNyeKxz8wC3dghJ5 | 48 | -696.284 | 3,325.947 | 0.500 |
+| FwnUt6MUucm4mKKGfRVcKo7W82MTusfZ2sDhnc8k6F5i | 53 | -597.421 | 3,249.835 | 0.450 |
+| 7YCDRyGNn8g3WgZg25JLB9wKuERMkj99AFc8zHAQVwSt | 219 | -595.703 | 0.000 | 0.004 |
+| 7LR33GiYcNS333LpdccyytkfPUytcZt3ZnVn7CRvW4pT | 237 | -568.931 | 0.000 | 0.005 |
+| 3d86H85gXsgFr7qu9hwCdPn4xHtWmw37QXjEiFc1wB63 | 56 | -534.757 | 3,166.005 | 0.415 |
+| 7K8DVxtNJGnMtUY1CQJT5jcs8sFGSZTDiG7kowvFpECh | 302 | -453.536 | 0.000 | 0.000 |
+| HU4xMHgk192zcjHgyPQ3ZbuNx5Wycg89pFDbeuCKBV3B | 218 | -423.358 | 0.000 | 0.010 |
+| BK5Km4MyuncoBWKCM9y3zntA1JjhdqNcHd3mxitms4Xo | 57 | -350.723 | 1,773.296 | 0.416 |
+| Cue647T8jgwpRSDUb8ttTYx7NiEfJCRZNiiw1qmchXsG | 297 | -332.049 | 0.000 | 0.000 |
+| 85ykoc8e56w7wDB3q9obP4fA8WwzvWVNGspgqN2KZ9gC | 277 | -321.346 | 0.000 | 0.010 |
+| 97im1Mxgn8FFcwhoVoqgGc7QegAokpQS2sxzrPVggKA3 | 118 | -315.007 | 0.000 | 0.195 |
+| DPmsofVJ1UMRZADgwYAHotJnazMwohHzRHSoomL6Qcao | 47 | -309.540 | 7,692.100 | 0.500 |
+| CyxKaD6TayfbCRx6mSrLpPY1YSLofdVZKA6BSThXWfXS | 56 | -301.539 | 1,896.900 | 0.415 |
+| BT8LZUvQVwFHRGw2Dwv7UeqDUq7btfjegLpuz5bwgziD | 98 | -276.199 | 358,367.789 | 0.222 |
+| GYRsheZ78JMfMNETuAZNrs6L1U3GsHP5crzzLPeETDYm | 123 | -267.001 | 0.000 | 0.185 |
+| 3XDZhoRESsx9bU9rdX94qrtLL7YCxhgX3dKmXFRV2vU7 | 53 | -265.800 | 607.151 | 0.450 |
+| 3FLezD8GJgnawEHhZcsjdPxZVar9FzqEdViusQ5ZdSwe | 126 | -258.030 | 0.000 | 0.160 |
+| he1iusunGwqrNtafDtLdhsUQDFvo13z9sUa36PauBtk | 234 | -255.630 | 0.000 | 0.000 |
+| vskzrzSd6owQiNb2YA52ZM4YtRzmsSyp6dJbjx2zTVN | 265 | -250.656 | 0.000 | 0.000 |
+| 8Rs4wJJVFaRmARmwSvsVSAcSsUb9ZJD4USejuHm974hH | 40 | -249.317 | 92,562.205 | 0.747 |
+| 4QCeaNWTRsKY7Taw6PtneftQbuJCnqEuHpXW4cbSVvLB | 56 | -245.561 | 1,112.484 | 0.415 |
+| Hx4UJCvf8amGeuW9fPFfTckRoznDHxPSYiU9HuUSZKLT | 302 | -244.481 | 0.000 | 0.000 |
+| FCjVa6gBiKjvacMqWGGMqJ5kiQh1kFcyeAcNyKMyCxzK | 113 | -224.135 | 0.000 | 0.205 |
+| De4k4hrdkxFHmAx4nVRA3g5ukdg4YqmDLdwuYUcrjjud | 36 | -222.304 | 195,662.445 | 0.760 |
+| 4m1PbxzwLdUnEwog3T9UKxgjktgriHgE1CfAhMqDw7Xx | 297 | -202.747 | 0.000 | 0.000 |
+| FyrSH4VeQidMVPQ9AE2szAbP5xBZBprRG3z1QMMLNi5X | 24 | -202.226 | 116,445.333 | 1.000 |
+| Simpj3KyRQmpRkXuBvCQFS7DBBG6vqw93SkZb9UD1hp | 286 | -196.698 | 0.000 | 0.003 |
+| 8ztfVJM7Yf7CMXqTGMGBkXmTkGCiJTgVfh1CYDZZND5b | 302 | -185.165 | 0.000 | 0.000 |
+| 6F4gdYb1sqHGMeFaeEcqt8N6S2anHre2BkZM7QWo8r6N | 53 | -177.444 | 155.854 | 0.450 |
+| 5m3oE8X1HokEpjXJv9eES98JiNuD9yp1T9TDCuxvZZDR | 291 | -177.200 | 0.000 | 0.001 |
+| 5mSBnz3zNSVzXQHxBmrTLESynukH2JHVcCN14GHtVsWD | 277 | -152.081 | 0.000 | 0.010 |
+| qjUuLxWo29QCBr7ZQw4EPLkAtmjHS2ZdZpZcH9g7fRb | 228 | -143.504 | 0.000 | 0.004 |
+| 74DQRGa4oqepMGcz96obZvw5gJPEPwaPa9MTqbAfBi9F | 295 | -141.852 | 0.000 | 0.000 |
+| 3xjfK9C9YNcta8MvK1US4sQ3bc6DEjoJoR3qLExGf9xE | 276 | -128.317 | 0.000 | 0.011 |
+| 8CKQeLWLkFXD9kg2U4y238i4eQrAxsoVtNA1dAtysbfJ | 227 | -121.873 | 0.000 | 0.003 |
+| EreifamaYZ1cAtegv5hJFgRSqDQg3i6uRamWXfYuJeC8 | 300 | -114.985 | 0.000 | 0.000 |
+| 42XzJdJvr1qE7zdEnPQhV5PsN9eyAcR45SWpTrifW1JB | 231 | -114.629 | 0.000 | 0.003 |
+| HMLfMHdETcGSqPGAr38rSiwewsSZvLPMMPALc5pggtiW | 288 | -112.351 | 0.000 | 0.002 |
+| SUN1nYpPJVjd3gKnDACdaUVL53LJaXR9u8e9i1jkZ3a | 48 | -105.724 | 728.233 | 0.500 |
+| CSWfwhactcdyK2YcRmk3Hx1AZzNKDFnCecwiYsJDkuSm | 271 | -90.496 | 0.000 | 0.011 |
+| Fbnesg4kSDDoFbjaSiDQJ3GXHHAnNb1CJCgLQp4dxj4C | 255 | -87.093 | 0.000 | 0.001 |
+| 3tjGkvUsNEk8UBUQECCTpeAoo6NovHvEG44MZDPCcZko | 285 | -77.171 | 0.000 | 0.005 |
+| ANRnEc3NFWyDFkJNHPnts9XAT1odt931qbgzMsSGdE1z | 273 | -76.945 | 0.000 | 0.010 |
+| MARGUSgKSvtDJ5ybpt6jT1JaHtG4mFD3dhCxkHhQyj1 | 213 | -76.335 | 0.000 | 0.010 |
+| DUCKsGEPEdNv9QeskPNwoJdWgAXjxUFrkNDEKjAnLWyY | 75 | -59.804 | 103,705.098 | 0.350 |
+| 76DafWkJ6pGK2hoD41HjrM4xTBhfKqrDYDazv13n5ir1 | 277 | -45.254 | 0.000 | 0.010 |
+| HM5H6FAYWEMcm9PCXFbbiUFfFVLTN9UGy9AqmMQjdMRA | 58 | -37.620 | 28,208.987 | 0.400 |
+| ABs7XJAwHJpmBfC2y677bH5jzNtt5cAxXc14Q5bWgQRd | 277 | -37.235 | 0.000 | 0.010 |
+| 8HKqT579dAjdTy86zKUs8kAaGDHXY11wDC3ohGCkLSQH | 279 | -35.670 | 0.000 | 0.008 |
+| 8inoRcYLtHdDL1qHWvGph7pkJKuJdrE2kNkFpjcYaYHf | 60 | -33.381 | 47,833.474 | 0.400 |
+| AfyTzhTXBRBCxGdTEMc9LNEkVGVGfGA9wHf1VikaNb37 | 68 | -29.161 | 205.684 | 0.367 |
+| 9esjPxaUdD7yg4yDrBkP3jLipcAGVjpLDXsddF89avzW | 126 | -28.382 | 0.000 | 0.160 |
+| 8jt9XxXpn8zedUrm5ALVRBczuCzdN77RBoTYwK6wHcXJ | 28 | -23.240 | 55,952.231 | 0.860 |
+| 91413b9eEvG6UofpSgwdUgH9Lz4QBF1G3J325Bw7JwGR | 81 | -21.923 | 379.154 | 0.300 |
+| AShjuYEE1bTBar9HGJehw3FgzibJuVwuP846guzbjRPM | 99 | -20.561 | 17,832.201 | 0.220 |
+| 3EJEfeyNRdvzbjXuzXCbqpJHRi9ugP1sL9YWGPuNCppw | 120 | -18.844 | 0.000 | 0.220 |
+| FGj3nQTn2Lwe9KkaKnFGm4HcxLSh8B8TjpvP4CinP4iX | 126 | -18.842 | 0.000 | 0.160 |
+| DG6fVEB2Qy1jntvHVPui3R12CMqcwNNnjYPYdsbQ9ACP | 302 | -17.536 | 0.000 | 0.000 |
+| AuBB9st3RqhHBkzZgBSm6SVnHZNJQSHeBWCSkik4bzdA | 124 | -12.516 | 0.000 | 0.160 |
+| 7dz4Zpj4bt6T6DsF8Lt3GKpWrkUXCXdmKxK2UGeAG2bi | 291 | -11.449 | 0.000 | 0.001 |
+| 3fntToRUTyDpSoLF1QMZgpF5HoDcSmvBisXoyKASMaaH | 42 | -9.205 | 41,860.596 | 0.700 |
+| 9vNLTLdwAdHw8EdiZrLzDtUpm3hp7E2MGaNi6SmdfBGz | 218 | -8.013 | 0.000 | 0.010 |
+| 6m4ZwGp8zCuqjBoAn11pYAQun2FwSMe86RwPbqpf34YC | 56 | -7.958 | 6,356.549 | 0.415 |
+| BbEcnQJRYUpnABxwQeHK2DQ9yCEdMAfJFxzZeNM4e4vS | 56 | -6.074 | 0.000 | 0.415 |
+| H7JJ6aE73ufbUuDCZSQMxguQsj28XHe4VQyMk2hsVGoo | 47 | -2.437 | 123,271.696 | 0.500 |
+| i6PZjkPHGYmPfPE8LsJuLn5huZyusXhmysiDiHGPjxb | 88 | -2.376 | 2.416 | 0.250 |
+
+## 補足情報
+- 分析対象: ステーク減少量が大きい上位100バリデータ
+- データソース: `auctions/772.*/outputs/results.json`

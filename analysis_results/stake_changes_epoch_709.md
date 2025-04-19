@@ -1,0 +1,189 @@
+# エポック709のステーク変更分析
+
+## 分析実行日時
+2025-04-17 08:59:42
+
+## サマリー
+- **総ステーク変更量**: 2,692,607.828 SOL
+- **変更件数**:
+  - 増加: 32件
+  - 減少: 60件
+  - 変更なし: 44件
+
+## 主な変更
+
+### 最大増加（上位5件）
+| バリデータ | 優先度 | 変更量(SOL) | 総ステーク量(SOL) | 入札額(CPMPE) |
+|------------|--------|-------------|-------------------|---------------|
+| D3QPJm7BDzzPeRG51YZSEz3LfV7GvFNu9NkcibzURxuj | 94 | +171,457.858 | 354,590.533 | 0.150 |
+| 4QCeaNWTRsKY7Taw6PtneftQbuJCnqEuHpXW4cbSVvLB | 33 | +135,486.625 | 275.332 | 0.325 |
+| E2MhCdSvsm8qexDPZ5AnZU2Wa1mG8F1US82vh7y317ff | 33 | +124,312.313 | 92,933.571 | 0.325 |
+| 3Grtx7bvWU7FPZDWZRdUUmigXBSfkJUzwdZqgfAapcgz | 33 | +112,032.275 | 26,956.703 | 0.325 |
+| 6m4ZwGp8zCuqjBoAn11pYAQun2FwSMe86RwPbqpf34YC | 33 | +110,267.291 | 102,529.572 | 0.325 |
+
+### 最大減少（上位5件）
+| バリデータ | 優先度 | 変更量(SOL) | 総ステーク量(SOL) | 入札額(CPMPE) |
+|------------|--------|-------------|-------------------|---------------|
+| GVQEm6h2UjDKhSU54kf7kFumJ5NDWddyYUtgy5eLCtBn | 56 | -100,000.000 | 30,788.372 | 0.295 |
+| H5oqciP46Ls3mJZu334niaKMcVWjsC7JKULLCZHxT8hr | 47 | -68,524.342 | 31,204.006 | 0.320 |
+| oRAnGeU5h8h2UkvbfnE5cjXnnAa4rBoaxmS4kbFymSe | 100 | -66,915.015 | 607,559.243 | 0.150 |
+| HAK7iPgQTFwqEzPfVrRDbG5epFdk1dsA9qQexytsDoes | 92 | -63,485.824 | 235,687.911 | 0.171 |
+| o27rnqfNHPwHsRp2xPXXwWzn2q2dGxn6UD4Rt5KMU5h | 9 | -60,195.948 | 179,273.537 | 0.410 |
+
+## 分析詳細
+
+### ステーク変更の分布
+- 変更量が10,000 SOL以上: 53件
+- 変更量が1,000-9,999 SOL: 27件
+- 変更量が100-999 SOL: 6件
+- 変更量が1-99 SOL: 6件
+- 変更なし: 44件
+
+### 優先度別の変更状況
+- 優先度1-20のバリデータ: 22件
+- 優先度21-50のバリデータ: 59件
+- 優先度51-100のバリデータ: 55件
+
+## 全バリデータ一覧（優先度順）
+| バリデータ | 優先度 | 変更量(SOL) | marinadeSamTargetSol | 入札額(CPMPE) |
+|------------|--------|-------------|---------------------|---------------|
+| FdGcvmbpebUwYA3vSywnagsaC3Tq3pAVmcR6VoxVcdV9 | 1 | 0.000 | 0.052 | 100,000.000 |
+| DPmsofVJ1UMRZADgwYAHotJnazMwohHzRHSoomL6Qcao | 2 | -14,998.537 | 6.564 | 0.500 |
+| 7wqiBhRVEkbV3A8LbR9W1eNb5s27CBwoRCVro1okB6ew | 3 | -692.205 | 0.000 | 0.510 |
+| BXNW9ysAB9ksEDidcNWraaFkMeA88q6xzFRSyNnGvQYC | 4 | -18,640.223 | 18,477.210 | 0.500 |
+| 3teZKwABvB99bxZc5q8yVWJt5mbhxgUAx4teMdUbzgN4 | 5 | -5,671.909 | 2,736.296 | 0.450 |
+| BK5Km4MyuncoBWKCM9y3zntA1JjhdqNcHd3mxitms4Xo | 6 | +2,747.082 | 22,747.082 | 0.410 |
+| 21wUViiyG1g47VZ39ZZsSkFX9nu6bkyfy6jryHGD2TUB | 7 | -2.724 | 3.246 | 0.420 |
+| Cn9bZCGSYN57GsTfJ5YLCy8HMejHZqrBQkv99eusJtEH | 8 | 0.000 | 80,000.000 | 0.399 |
+| o27rnqfNHPwHsRp2xPXXwWzn2q2dGxn6UD4Rt5KMU5h | 9 | -60,195.948 | 0.000 | 0.410 |
+| 5akpkYincAbsTBXVbf2GDCg4KatMnc8BKkXZCh7MWGPK | 10 | -3.754 | 1.587 | 0.400 |
+| AShjuYEE1bTBar9HGJehw3FgzibJuVwuP846guzbjRPM | 11 | -2,033.874 | 51,071.101 | 0.375 |
+| EsELtZoep4TYcugKyMnB4ZWZYxn99V5Vb1TwexDzFey | 12 | -15,753.013 | 34,224.713 | 0.375 |
+| yrfQfUfsZechz1zqQyTRRz43czTZQidcrm4SNVWiDPi | 13 | 0.000 | 70,000.000 | 0.370 |
+| EreifamaYZ1cAtegv5hJFgRSqDQg3i6uRamWXfYuJeC8 | 14 | -17,306.116 | 76,764.698 | 0.400 |
+| 5mSBnz3zNSVzXQHxBmrTLESynukH2JHVcCN14GHtVsWD | 15 | 0.000 | 35,000.000 | 0.400 |
+| SoLdWNZvT8f9293cELNBcPL3XLzsKCyG4AFmvqwXbmq | 15 | -4,939.829 | 67,823.919 | 0.400 |
+| DTDvrj1mKFv453DMAGRuFwg77DuLjsfVHnbLe5BJPL9D | 16 | -22,182.230 | 117,423.288 | 0.355 |
+| A9YmK82uhCXieM9Cw9gN7W1F2KCxa8U1ArA6qxnyYcXQ | 17 | -6,213.277 | 57,803.755 | 0.351 |
+| 8gJCfKzr55gM6DtAaFqoWjBGAmsJ71mpHem6qJAASBU4 | 18 | -6,749.612 | 77,711.621 | 0.350 |
+| HM5H6FAYWEMcm9PCXFbbiUFfFVLTN9UGy9AqmMQjdMRA | 18 | +82,647.995 | 143,764.215 | 0.350 |
+| 8inoRcYLtHdDL1qHWvGph7pkJKuJdrE2kNkFpjcYaYHf | 19 | +10,000.000 | 85,000.000 | 0.347 |
+| 1Dadio3JRvpEjY6iSmXmhbGy9RiU8Nxh2GmoVbNusbE | 20 | -21,495.017 | 38,004.983 | 0.360 |
+| 5csconnhG1Z2JBGoACCiFyrhCg31pAecXa3ugymbyMw5 | 21 | 0.000 | 30,000.000 | 0.380 |
+| GstRMuD8ZU61k7x33rSsp2J84S8bQMjK17pmJyXCdh7b | 21 | 0.000 | 10,000.000 | 0.380 |
+| 4aFj9VyXDrqU4TnKWnMVuPaAVTaF4GZLLKZN2iZivW29 | 22 | +2,871.317 | 22,987.830 | 0.360 |
+| BLX5PkLh7GsHaqCpLDxiW3UjxfT2GMyteVAhRZBYhCts | 23 | -2,874.824 | 13,321.667 | 0.355 |
+| Fbnesg4kSDDoFbjaSiDQJ3GXHHAnNb1CJCgLQp4dxj4C | 24 | +914.140 | 35,852.622 | 0.375 |
+| 2Gife8andd4BkEbT5CncpriPxmQYqbspDh8cXkN6RUSH | 25 | 0.000 | 90,000.000 | 0.350 |
+| 9V3mbi8z9MHicFQN9n9CGEMfuX4yKaBjJNuzyTUxaWXi | 25 | 0.000 | 50,000.000 | 0.350 |
+| H7JJ6aE73ufbUuDCZSQMxguQsj28XHe4VQyMk2hsVGoo | 25 | 0.000 | 90,000.000 | 0.350 |
+| 49DJjUX3cwFvaZD5rCAwubiz7qdRWDez9xmB381XdHru | 25 | -40,811.715 | 30,847.515 | 0.350 |
+| DUCKsGEPEdNv9QeskPNwoJdWgAXjxUFrkNDEKjAnLWyY | 25 | 0.000 | 80,000.000 | 0.350 |
+| CaraHZBReeNNYAJ326DFsvy41M2p1KWTEoBAwBL6bmWZ | 25 | 0.000 | 100,000.000 | 0.350 |
+| HkK6U5e8HkTs5uE7VEWQ2H3NuznjLF1mpoRVjzdDgfF5 | 26 | -8,746.687 | 10,490.702 | 0.353 |
+| 3FLezD8GJgnawEHhZcsjdPxZVar9FzqEdViusQ5ZdSwe | 27 | +65.419 | 37,397.279 | 0.350 |
+| FGj3nQTn2Lwe9KkaKnFGm4HcxLSh8B8TjpvP4CinP4iX | 27 | +139.583 | 37,720.576 | 0.350 |
+| 9esjPxaUdD7yg4yDrBkP3jLipcAGVjpLDXsddF89avzW | 27 | +154.761 | 37,616.890 | 0.350 |
+| BtUD8v5vEXJ8CSUo2qQq4vqQxKSiLKUp1bxeeGLJsPXM | 28 | 0.000 | 10,000.000 | 0.350 |
+| FxQLh2b8JnBFwPw325tix5x6BEJ7ibmqz2LyKLZWiGAX | 28 | 0.000 | 20,000.000 | 0.350 |
+| GaxxAn5335dA4U3772MCFeqdyqCVEfmsQTQ47YXfC2Xi | 28 | 0.000 | 12,288.000 | 0.350 |
+| GdVBPczdFaPf1GXvx8ByHeA1ZHAHwwmdQEPihH74SXm9 | 28 | 0.000 | 25,000.000 | 0.350 |
+| HU4xMHgk192zcjHgyPQ3ZbuNx5Wycg89pFDbeuCKBV3B | 29 | 0.000 | 30,000.000 | 0.370 |
+| A11pGbZDE8fPNZgiqDjoST6v3QMdhzZ3r8W5YahCKtS5 | 30 | -23,822.752 | 40,822.346 | 0.331 |
+| D8aGMETy3q6ymADJs7YS81QY2qTQmptVox3iCfGDgSTA | 31 | -2,455.250 | 97,544.750 | 0.330 |
+| 8ztfVJM7Yf7CMXqTGMGBkXmTkGCiJTgVfh1CYDZZND5b | 32 | 0.000 | 10,000.000 | 0.360 |
+| 4QCeaNWTRsKY7Taw6PtneftQbuJCnqEuHpXW4cbSVvLB | 33 | +135,486.625 | 135,486.625 | 0.325 |
+| 5wP5Qm9frQfXY9QadZZHqgy6GEvqtHjpJ6uongxdb5gJ | 33 | +80,198.295 | 154,872.364 | 0.325 |
+| 3d86H85gXsgFr7qu9hwCdPn4xHtWmw37QXjEiFc1wB63 | 33 | -7,247.874 | 126,730.535 | 0.325 |
+| 3Grtx7bvWU7FPZDWZRdUUmigXBSfkJUzwdZqgfAapcgz | 33 | +112,032.275 | 112,081.842 | 0.325 |
+| CyxKaD6TayfbCRx6mSrLpPY1YSLofdVZKA6BSThXWfXS | 33 | -963.838 | 135,665.560 | 0.325 |
+| E2MhCdSvsm8qexDPZ5AnZU2Wa1mG8F1US82vh7y317ff | 33 | +124,312.313 | 124,436.588 | 0.325 |
+| 8rP6iyELBNkHabaNXvMJKEt7tgNSKeExT1w6AQUJbyz | 33 | +21,726.391 | 142,145.155 | 0.325 |
+| 6m4ZwGp8zCuqjBoAn11pYAQun2FwSMe86RwPbqpf34YC | 33 | +110,267.291 | 110,328.241 | 0.325 |
+| 4VYA9PECtNzDRXNHKepzMprS1Y6nxKF4oRRnwkJqQZys | 33 | +54,479.676 | 134,972.083 | 0.325 |
+| 37Fz6yZjFdZS6DDsJSsswX5kSvunaZQtQ5zusC3y9V7S | 33 | +53,960.899 | 136,890.091 | 0.325 |
+| BBGumW2W9u8NEpkKeK4Gq1dCL2dUzAcLVPoPFYHwHHjm | 34 | 0.000 | 10,370.000 | 0.341 |
+| HMLfMHdETcGSqPGAr38rSiwewsSZvLPMMPALc5pggtiW | 35 | 0.000 | 20,000.000 | 0.361 |
+| ESaLvDNR7FVdf4sR1edjAGN678ts24s8VGirvPq9q7H3 | 36 | 0.000 | 10,000.000 | 0.360 |
+| 3tjGkvUsNEk8UBUQECCTpeAoo6NovHvEG44MZDPCcZko | 36 | 0.000 | 10,000.000 | 0.360 |
+| Anv7J9kMdJWr1aU6rQvQyd24zBp5GscP8NeDpRqGKz8e | 36 | 0.000 | 10,000.000 | 0.360 |
+| EtkzFbZak1QuZUTK6woX41dhjtguoeQsh9Xh1VRVNeGv | 36 | 0.000 | 10,000.000 | 0.360 |
+| 4v2os15BGgAnqiy76YvPmAywp5xKh9jfBPfnQGzUVc9c | 37 | +5,097.389 | 134,817.394 | 0.360 |
+| 53fAQnWfTPoTQUb3AwPsUZsTTe4djRHmW8U8yztvVF8G | 38 | -3,057.317 | 30,550.835 | 0.340 |
+| AnodeNCzJGQ7QwheFqJr6EknKGa72m6XHiLtDQiXcmEc | 39 | 0.000 | 10,250.000 | 0.335 |
+| 5kYPCTLoF2y7cynJEuv5LVaTPpLoPbcxiCYKk3KKcB1C | 40 | 0.000 | 65,000.000 | 0.333 |
+| FVhMWs3bbayWpUqDAbWUPH813gzFzJEo8fzhLhhkGstp | 41 | -17,433.929 | 129,003.966 | 0.330 |
+| 2qsJLygBZ2XoYkRtkngH4fH4CtFmzfnjARbtMSWkZAQs | 42 | 0.000 | 87,000.000 | 0.331 |
+| DrCcHpAWj8a4JU99QKtwfCynzdhgQeuieAY9WadZD5Ry | 43 | -20,107.776 | 35,162.626 | 0.350 |
+| Fxnh7reapaQPZdbLPpFG1svuEGcJvibnT1Q4N8h11g4A | 43 | 0.000 | 10,000.000 | 0.350 |
+| ADmLWUm2eQ3KFijFbqa4bVfiLVmW5iqjStE5b8Wbti1y | 43 | 0.000 | 80,000.000 | 0.350 |
+| G1itch7djMvG4vMRToAgs45cVqrLGKFbzrgV4qNDsG1X | 43 | -22,052.295 | 26,149.757 | 0.350 |
+| 8Rs4wJJVFaRmARmwSvsVSAcSsUb9ZJD4USejuHm974hH | 43 | 0.000 | 0.000 | 0.350 |
+| 4gg56BTsCSEXW3CLw7BuT31x3ptEjSz6aeVE1Xjby22R | 43 | -8,982.509 | 16,122.320 | 0.350 |
+| DimavhUqvCpWjUZqSFZGLqBiUVUYQ5jZEaCHutKKVs45 | 44 | +75,582.401 | 150,000.000 | 0.320 |
+| 9mB171rzHzYFJTSoLBEDTX4ZvzzyWW2mtBBJovy1qD2E | 45 | -55,103.374 | 11.942 | 0.310 |
+| GPjDwfsmy8A8ZpPHB4uTwZQhPnbA3mRQeRsY58uXqeDy | 45 | +23,282.474 | 100,000.000 | 0.310 |
+| 7zFvisPXq7xCFoSAL4oxZhRpDonmf8NxQFuLNGW4UYFh | 46 | -9,701.505 | 58,262.340 | 0.320 |
+| H5oqciP46Ls3mJZu334niaKMcVWjsC7JKULLCZHxT8hr | 47 | -68,524.342 | 0.000 | 0.320 |
+| 3M4QYXfFM64wqSpSeQZWA6PJNmR6QQtF64BLzA9SG7ZD | 48 | 0.000 | 40,000.000 | 0.310 |
+| 5AC692spnjbegP7ttCXJEzUe8S81sLYsqJd8Ae6Zv1xU | 49 | +3.681 | 3.681 | 0.294 |
+| 91413b9eEvG6UofpSgwdUgH9Lz4QBF1G3J325Bw7JwGR | 50 | -2,602.834 | 9,808.220 | 0.300 |
+| GQ8DSRSNCFGEdCEwc6em1ma18qSPc5cXCSDnSPSznWBP | 51 | -33,470.912 | 15.276 | 0.300 |
+| CJznrtFkWvkK91W57btS77cXqRKce3DcoX8KXRp2WzpR | 52 | +5,086.589 | 83,211.796 | 0.302 |
+| 39xF5qkfK5HBaG4Hkq6bjumUB2k4B5ozEAmfZoobhUVw | 53 | -26,982.552 | 139,481.525 | 0.300 |
+| HG574XwiowrjLx8h91KhHUhPeMfmUPBLfC9XrXynj9x | 53 | -10,000.000 | 0.000 | 0.300 |
+| eondcw2upjH14EuvBzmn6HfGEGo8t9hG9JbXtPj6cym | 54 | +1.844 | 1.844 | 0.300 |
+| 5nkSzU4oVSDdxZvorYwxz6BQab2VfmHbdA9AnpYVkAL7 | 55 | 0.000 | 0.000 | 0.280 |
+| GVQEm6h2UjDKhSU54kf7kFumJ5NDWddyYUtgy5eLCtBn | 56 | -100,000.000 | 0.000 | 0.295 |
+| FqavJAnX2ioPssR7NkZnSU65fVLCr3AgnghuBKfSnePE | 57 | +10,697.485 | 47,414.716 | 0.265 |
+| 7YCDRyGNn8g3WgZg25JLB9wKuERMkj99AFc8zHAQVwSt | 58 | +10,100.861 | 51,046.543 | 0.263 |
+| 93cas2LuLsSAGPpFvHdeaWprR34NLQbgiQEeAtizpMmz | 59 | -21,466.985 | 12,007.748 | 0.300 |
+| A2MtELFxn9wAiUrobrZ6vsypQtGHdH3ZesEnvAogvuFZ | 60 | -20,820.445 | 19,930.833 | 0.270 |
+| 8wEfU2LDRFTJf57fv1FutTkp8LEW7cR2m5L7ZNNXXMCT | 61 | +4,192.205 | 50,000.000 | 0.254 |
+| 6wrzzX8hhhwY8NVtZWJqYJJfqnkDiFq6qTZEKLv3SjZk | 62 | +7,760.064 | 40,146.014 | 0.250 |
+| HWeDLvzf8PhbYCuNFXB9E3fiCaz8RCtHW8b52iPAboCJ | 63 | -26,822.978 | 79,748.024 | 0.250 |
+| 8F4e1nbeC6hn9jkojtboERZGaafxUUtsqUy3MKJLohkh | 63 | 0.000 | 97,000.000 | 0.250 |
+| AMvyqeuRBxcDuy38MuGtPksvBtpuT3NPyoiVBDbzza6P | 64 | -23,476.530 | 19.771 | 0.273 |
+| BNYVMkawH7ekKdbZ7NHqd7duLVc6QLATHYf5aqMkwjec | 65 | 0.000 | 0.000 | 0.230 |
+| 9Gko8QZBbV5SrEvHKtQHcMrGGSfgFP3KJUozEGifu25x | 66 | 0.000 | 0.000 | 0.230 |
+| 3UmhLuNdgE2NYDSfXmbu5DhPRxWUK8JwiRcG6tXV4JGc | 66 | -370.977 | 32,104.177 | 0.230 |
+| BrRf2kyJEuW8TgdeDjvJcKK4NzTzRtM9RB6WuVKXHxkN | 67 | -4,000.000 | 70,000.000 | 0.251 |
+| HC1NSDR9cbBeQ8V1XJ62VNceUAbjGdnCcH7f5wVFVZw3 | 68 | 0.000 | 0.000 | 0.230 |
+| 3dXXxEaV4fZqw1PL7VezfDkiJV5W4WTtRjh2EHgKSthF | 69 | 0.000 | 0.000 | 0.249 |
+| GA2t11gJcmuZ4y7pShTzgYDkxVaJaVQJqkVUqojhPPsT | 70 | 0.000 | 20,000.000 | 0.210 |
+| BWkvytz3MAiLkUbMuYK5yV1VYThbBYYQYG3gdef8NLw5 | 71 | 0.000 | 0.000 | 0.220 |
+| BXf5pMTSWJdfwaiRYpwJjkTUuUe2sdvcJx7X7UNbyGe1 | 72 | 0.000 | 0.000 | 0.221 |
+| DepooLoEUsBurWjv2xXnb4qfVFnExRCvAma94mcRzcmc | 73 | +41,699.989 | 141,699.989 | 0.200 |
+| GNajgJGjkdnmZTRGZzsQ4P4eL54gHRMfDDLyZpnZYmUy | 74 | +100,000.000 | 100,000.000 | 0.190 |
+| GbC2vzt6S2HsUAJ46Qfh3aoG6oB9y3V4T7XD7914K5na | 75 | -39,303.946 | 84,344.661 | 0.175 |
+| C6o1toH7rriz2DocmgTw6JzFbJdLpQ9w2QsjeKQQinfZ | 75 | -2,007.975 | 60,705.814 | 0.175 |
+| GxMWXbj3xLVf9bK4rspJ3yjg7cmaLhZX6325brY8J1wi | 76 | 0.000 | 12,000.000 | 0.183 |
+| 8ZvTbWfA7txjkNubA9jnv8CWQtwbaZSzpf7vaDDcxMr5 | 77 | 0.000 | 0.000 | 0.170 |
+| HFLsfstZkJeWDgVEA5fmXeea876Ad9f1VxrbXk386bBY | 78 | -47,551.737 | 63,814.234 | 0.169 |
+| He4AUUbyUciqmWuAga11ucr2tM64GA3NqFXYEPmHPv6t | 79 | -6,899.232 | 37,252.705 | 0.172 |
+| DM8eVQwKYpFUq4MAC1XEeZMjV4T34LfvGkK9vca55GaY | 80 | -54,536.408 | 62,340.662 | 0.185 |
+| 4mUZWLYoo16fe2S2xZ1DdXZHBxynRWBAf3prokBQsxac | 81 | -5,341.633 | 53,686.794 | 0.170 |
+| P4f3F3VfMhKvpGQXg2MuvLfWmZui41gvcH9XKtYDiFX | 82 | -27,876.449 | 71,963.950 | 0.183 |
+| AjdEzodq5LpRA63AtQaiHyTLDfjTkr6csrtYWiSDPjaK | 83 | +1,295.341 | 111,697.234 | 0.165 |
+| 8guXF5HQVU4g71ZCnn6aEJxQyb59NaEc4XCGjF5arsiH | 84 | -59,276.184 | 85,630.134 | 0.182 |
+| 5WPxGiB6zBXNJp8JN3WhSKDuTY3ZBX6dBDcbtVMQAJLX | 85 | -58,818.166 | 64,940.422 | 0.180 |
+| A1taSaBJrLMrqfWsPESYDujnZv5yD7bF35LjXoyNXhzN | 85 | -36,464.017 | 69,950.036 | 0.180 |
+| 8CKQeLWLkFXD9kg2U4y238i4eQrAxsoVtNA1dAtysbfJ | 86 | +6,109.115 | 65,343.110 | 0.165 |
+| 6xwWwNVXJLGhgPfBpew7UDcSjQr73McXSRK2EhdhcL1u | 87 | -25,527.059 | 83,246.187 | 0.178 |
+| 5ni6KoVM62cRJNfFFKGdiyDfYbKWWAGZ21cfGZcj1y66 | 88 | -27,474.991 | 89,921.129 | 0.175 |
+| 2ZuVhyBsUbTh27LBCQH3BkenjPp86gUZiNBKmhPsTRpT | 89 | -55,597.680 | 112,110.295 | 0.171 |
+| FPjq7vB2V3TiseJJSPsp47UWSfT4AwvKjiU7GEro7bX9 | 90 | -49,122.051 | 55,269.346 | 0.172 |
+| 8D8XL6ovqx15RKwC1XtFyTz6H8JYF2fUsxTnsY4b123P | 91 | 0.000 | 30,000.000 | 0.161 |
+| HAK7iPgQTFwqEzPfVrRDbG5epFdk1dsA9qQexytsDoes | 92 | -63,485.824 | 61,673.807 | 0.171 |
+| Simpj3KyRQmpRkXuBvCQFS7DBBG6vqw93SkZb9UD1hp | 93 | 0.000 | 10,000.000 | 0.170 |
+| D3QPJm7BDzzPeRG51YZSEz3LfV7GvFNu9NkcibzURxuj | 94 | +171,457.858 | 171,457.858 | 0.150 |
+| Gvt8s5Bwnhg4G27VbnT1Zkfh7Jsztq6CNvZcc5anPonS | 95 | 0.000 | 0.000 | 0.180 |
+| AuBB9st3RqhHBkzZgBSm6SVnHZNJQSHeBWCSkik4bzdA | 96 | -0.959 | 2.375 | 0.160 |
+| 7XTz9RDt9gbckonUUYvzQ8q3Pfdo36oiQsreXsHhNFzj | 97 | -45,684.603 | 63,912.750 | 0.145 |
+| 3zxkHtntSzfW2rukRFqhN9SDPzqicvF6WwN6yDwdSvxQ | 98 | +5,772.073 | 35,608.114 | 0.160 |
+| EARTHZeTM64X3UMYf5rcWonQkTCn3uifEwutBx6e656K | 99 | -1,802.000 | 13,198.000 | 0.160 |
+| oRAnGeU5h8h2UkvbfnE5cjXnnAa4rBoaxmS4kbFymSe | 100 | -66,915.015 | 93,084.985 | 0.150 |
+
+## 補足情報
+- 分析対象: stakePriorityが1-100のバリデータ
+- データソース: `auctions/709.*/outputs/results.json`

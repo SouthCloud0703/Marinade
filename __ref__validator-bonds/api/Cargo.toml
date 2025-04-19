@@ -1,0 +1,37 @@
+[package]
+name = "api"
+version = "0.0.0"
+edition = "2021"
+
+[[bin]]
+name = "api"
+path = "src/bin/api.rs"
+
+[[bin]]
+name = "validator-bonds-api-cli"
+path = "src/bin/cli.rs"
+
+[dependencies]
+anyhow = { workspace = true }
+chrono = { workspace = true }
+env_logger = { workspace = true }
+gcp-bigquery-client = { workspace = true }
+log = { workspace = true }
+merkle-tree = { workspace = true }
+rust_decimal = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+bid-psr-distribution = { workspace = true }
+openssl = { workspace = true }
+postgres-openssl = { workspace = true }
+solana-sdk = { workspace = true }
+structopt = { workspace = true }
+tokio = { workspace = true }
+tokio-postgres = { workspace = true }
+tracing = { workspace = true }
+tracing-log = { workspace = true }
+tracing-subscriber = { workspace = true }
+utoipa = { workspace = true }
+validator-bonds-common = { workspace = true }
+warp = { workspace = true }

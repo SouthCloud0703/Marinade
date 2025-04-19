@@ -1,0 +1,203 @@
+agents:
+  queue: "snapshots"
+
+env:
+  gs_bucket: gs://marinade-validator-bonds-mainnet
+  SLACK_API: https://slack.com/api/chat.postMessage
+
+# This pipeline is responsible for verifying the settlements of the past epochs
+# It will download the past settlements from gcloud and checks their existence on-chain
+# If unknown Settlement is found it may mean a mallicious actor stolen operator keypair and tries to withdraw funds.
+# If that happens we need to act fast as the Validator Bonds emergency or operator authority may cancel any Settlement at any time.
+# The Settlement cannot be claimed immediately, but it takes several slots (~ 1/2 of epoch) to get it permitted for claiming.
+# See
+#  * Config.slots_to_start_settlement_claiming
+#  * programs/validator-bonds/src/instructions/settlement/claim_settlement.rs
+#  * programs/validator-bonds/src/instructions/settlement/cancel_settlement.rs
+
+steps:
+  - label: ":closed_lock_with_key: Concurrency gate lock"
+    command: echo "--> Start of concurrency gate"
+    concurrency_group: 'validator-bonds/verify-settlements-${CLAIM_TYPE}'
+    concurrency: 1
+
+  - input: "What is the Bonds Config type to verify?"
+    fields:
+      - select: "Claim type"
+        key: "claim_type"
+        options:
+          - label: "Bidding Settlements"
+            value: "bid"
+          - label: "Institutional Settlements"
+            value: "institutional"
+    if: "build.env('CLAIM_TYPE') == null"
+    blocked_state: running
+
+
+  - wait: ~
+
+  - label: ":hammer_and_wrench: :rust: Build"
+    commands:
+    - '. "$HOME/.cargo/env"'
+    - 'cargo build --release --bin list-settlement'
+    - 'cargo build --release --bin verify-settlement'
+    artifact_paths:
+      - target/release/verify-settlement
+      - target/release/list-settlement
+
+  - label: ":black_nib: Env variables setup: Verify Settlements"
+    commands:
+    - |
+      claim_type=${CLAIM_TYPE:-$(buildkite-agent meta-data get claim_type)}
+      buildkite-agent meta-data set --redacted-vars='' claim_type "$$claim_type"
+      config_pubkey=$(./scripts/bonds-config-pubkey.sh "$$claim_type")
+      buildkite-agent meta-data set --redacted-vars='' config_pubkey "$$config_pubkey"
+    - |
+      slack_feed=$(./scripts/bonds-slack-feed.sh "$$claim_type")
+      buildkite-agent meta-data set --redacted-vars='' slack_feed "$$slack_feed"
+    - |
+      echo "Claim Type: '$$claim_type'/'$$config_pubkey', Slack Feed: '$$slack_feed'"
+
+  - wait: ~
+
+  - label: " Loading past settlements json files"
+    env:
+      past_epochs_to_load: 7
+    commands:
+    - |
+      current_epoch=$(curl --silent "$$RPC_URL" -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1, "method":"getEpochInfo"}' | jq '.result.epoch')
+      start_epoch=$((current_epoch - past_epochs_to_load))
+    - |
+      claim_type=$(buildkite-agent meta-data get claim_type)
+      claim_type_prefix="$${claim_type%%-*}"
+    - 'mkdir ./merkle-trees/'
+    - |
+      echo "Sequence printing: $(seq $$start_epoch $$current_epoch)"
+      for epoch in $(seq $$start_epoch $$current_epoch); do
+        for merkle_tree_file in $(gcloud storage ls "$gs_bucket/$$epoch/$${claim_type_prefix}*settlement-merkle-trees.json"); do
+          base_name=$(basename "$$merkle_tree_file")
+          gcloud storage cp "$$merkle_tree_file" "./merkle-trees/$${epoch}_$${base_name}"
+        done
+      done
+    artifact_paths:
+      - "./merkle-trees/*"
+
+  - wait: ~
+
+  - label: ":campfire: List past settlements"
+    env:
+      RPC_URL: "$$RPC_URL"
+      RUST_LOG: info,solana_transaction_builder_executor=debug,solana_transaction_builder=debug,solana_transaction_executor=debug,list_settlement=debug
+    commands:
+    - . "$HOME/.cargo/env"
+    - buildkite-agent artifact download --include-retried-jobs "merkle-trees/*" .
+    - buildkite-agent artifact download --include-retried-jobs target/release/list-settlement .
+    - chmod +x target/release/list-settlement
+    - |
+      ./target/release/list-settlement \
+        -m ./merkle-trees/* \
+        --config $(buildkite-agent meta-data get config_pubkey) \
+        --out ./past-settlements.json
+    artifact_paths:
+      - "./past-settlements.json"
+
+  - wait: ~
+
+  - label: ":campfire::arrow_right: Verify settlements"
+    env:
+      RPC_URL: "$$RPC_URL"
+      RUST_LOG: info,solana_transaction_builder_executor=debug,solana_transaction_builder=debug,solana_transaction_executor=debug,verify_settlement=debug
+    commands:
+    - . "$HOME/.cargo/env"
+    - command_name="verify-settlement"
+    - |
+      echo "#ATTEMPT VERIFY SETTLEMENTS $((BUILDKITE_RETRY_COUNT+1))" | tee -a "./execution-report.$$command_name.$$BUILDKITE_RETRY_COUNT"
+    - buildkite-agent artifact download --include-retried-jobs target/release/verify-settlement .
+    - buildkite-agent artifact download --include-retried-jobs past-settlements.json .
+    - source ./scripts/execute-handlers.sh
+    - chmod +x target/release/verify-settlement
+    - |
+      handle_command_execution "$$command_name" \
+      ./target/release/verify-settlement \
+        --config $(buildkite-agent meta-data get config_pubkey) \
+        --past-settlements ./past-settlements.json
+    key: 'verify-settlement'
+    artifact_paths:
+      - "./execution-report.*"
+    retry:
+      automatic:
+        - exit_status: 100
+          limit: 3
+
+  - label: ":memo: Notification setup: Verify Settlements"
+    commands:
+     - mkdir ./reports
+     - command_name='verify-settlement'
+     - buildkite-agent artifact download --include-retried-jobs "execution-report.$$command_name.*" ./reports/ || echo "[\"No report ERROR\"]" > ./reports/execution-report.$$command_name.error
+     - report_path="./reports/$(ls -v1 reports/ | tail -n 1)"
+     - |
+       ATTEMPT_COUNT=$(grep -c ATTEMPT "$$report_path" | sed 's/.*ATTEMPT //g')
+       buildkite-agent meta-data set --redacted-vars='' attempts_count "$${ATTEMPT_COUNT:-0}"
+     - cat "$$report_path" | grep -v "ATTEMPT" > ./verify-report.json
+    artifact_paths:
+    - "./verify-report.json"
+    key: 'notification'
+    depends_on: "verify-settlement"
+    allow_dependency_failure: true
+
+  - wait: ~
+
+  - label: ":mega: Notification settlements verification"
+    commands:
+    - buildkite-agent artifact download --include-retried-jobs verify-report.json .
+    - source ./scripts/execute-handlers.sh
+    - check_command_execution_status "verify-settlement" || true
+    - cat ./verify-report.json
+    - echo "--------------------------------------------"
+    - slack_feed=$(buildkite-agent meta-data get slack_feed)
+    - |
+      number_unknown_settlements=$(jq '. | length' ./verify-report.json)
+      if [ $$number_unknown_settlements -gt 0 ]; then
+        echo " => $$number_unknown_settlements unknown Settlements found"
+        unknown_settlements=$(jq -rc '. | join(", ")' ./verify-report.json)
+        curl ${SLACK_API} -X POST -H 'Content-type: application/json; charset=utf-8' \
+            -H "Authorization: Bearer $$SLACK_BEARER_TOKEN" -d '{
+              "channel": "'"$$slack_feed"'",
+              "text": "🚨 Unknown settlements detected",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🚨❗🚨 Unknown settlements detected ('"$$number_unknown_settlements"')"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Unknown settlements:*\n```'"$$unknown_settlements"'```"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "<'"$${BUILDKITE_BUILD_URL}/#$${BUILDKITE_JOB_ID}"'|View in Buildkite>"
+                    }
+                  ]
+                }
+              ]
+          }'
+        exit 2
+      fi
+    depends_on: "notification"
+    allow_dependency_failure: true
+
+  - wait: ~
+
+  - label: ":unlock: Concurrency gate unlock"
+    command: echo "End of concurrency gate <--"
+    concurrency_group: 'validator-bonds/verify-settlements-${CLAIM_TYPE}'
+    concurrency: 1

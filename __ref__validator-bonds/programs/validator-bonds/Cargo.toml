@@ -1,0 +1,29 @@
+[package]
+name = "validator-bonds"
+version = "2.1.0"
+description = "Marinade validator bonds program protecting validators performance"
+edition = "2021"
+license = "Apache-2.0"
+authors = ["Marinade.Finance"]
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "validator_bonds"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dev-dependencies]
+bincode = { workspace = true }
+
+[dependencies]
+anchor-lang = { workspace = true, features = ["init-if-needed", "event-cpi"] }
+anchor-spl = { workspace = true, features = ["stake", "mint", "token", "associated_token", "token_2022", "metadata"] }
+solana-security-txt = { workspace = true }
+default-env = { workspace = true }
+merkle-tree = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
