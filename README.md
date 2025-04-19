@@ -1,93 +1,60 @@
-# Marinade SAM Pipeline データ分析
+# Marinade SAM Pipeline
 
-## 概要
-Marinade SAMのバリデータデータを分析するためのパイプライン
-
-## 自動更新の仕組み
-1. GitHub Actionsが6時間ごとに実行され、以下の処理を行います：
-   - upstreamリポジトリからの更新チェック
-   - 新しいデータがある場合は自動的にoriginリポジトリを更新
-   - 更新状況をSlackに通知
-
-2. 更新後の作業フロー
-   ```bash
-   # ローカルリポジトリの更新
-   git pull origin main
-
-   # 分析の実行
-   python analyze_stake_changes.py <エポック番号>
-   ```
-
-## 分析結果
-- 分析結果は `analysis_results/` ディレクトリに保存されます
-- ファイル名形式: `top_priority_epoch_<エポック番号>.md`
-
-## 通知内容
-Slackには以下の3パターンで通知されます：
-1. 更新なし：新しいデータがない場合
-2. 更新あり：新しいデータを検出した場合
-3. エラー：実行中にエラーが発生した場合
+このリポジトリは、Marinade SAMのステーク変更分析を行うためのパイプラインです。
 
 ## セットアップ
 
 1. リポジトリのクローン
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/SouthCloud0703/Marinade.git
+cd Marinade
 ```
 
-2. 依存関係のインストール
+2. 仮想環境のセットアップ
 ```bash
-python -m pip install -r requirements.txt
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 ```
 
-3. upstreamの設定
+3. 依存パッケージのインストール
 ```bash
-git remote add upstream https://github.com/marinade-finance/ds-sam-pipeline.git
+pip install -r requirements.txt
 ```
 
-## 実行方法
+## 手動実行手順
 
-### GitHub Actionsワークフロー
+### 1. データの更新確認
 
-1. 自動実行
-- 6時間ごとに自動的に実行されます
-- 新しいデータがある場合のみ分析を実行します
+以下のコマンドを実行して、upstreamリポジトリからデータの更新を確認します：
 
-2. 手動実行
-- GitHubリポジトリの「Actions」タブを開く
-- 「自動分析ワークフロー」を選択
-- 「Run workflow」ボタンをクリック
-- 「Run workflow」を再度クリックして実行
-
-### ローカルでの実行
-
-1. データの更新
 ```bash
-bash scripts/update_analysis.sh
+source scripts/update_analysis.sh
 ```
-- upstreamからデータを取得します
-- 新しいデータがある場合のみ更新します
 
-2. 分析の実行
+- 終了コード0: 更新なし
+- 終了コード1: 更新あり（auctionsディレクトリが更新されます）
+
+### 2. ステーク変更の分析
+
+最新のエポックに対して分析を実行します：
+
 ```bash
-python analyze_stake_changes.py <epoch>
+python analyze_stake_changes.py <epoch_number>
 ```
-- `<epoch>`: 分析対象のエポック番号
-- 例: `python analyze_stake_changes.py 772`
 
-## 出力ファイル
+- `<epoch_number>`: 分析対象のエポック番号
+- 分析結果は `analysis_results/top_priority_epoch_<epoch_number>.md` に保存されます
 
-分析結果は以下の形式で保存されます：
-- パス: `analysis_results/top_priority_epoch_<epoch>.md`
-- 内容:
-  - ステーク優先度上位バリデータ（Priority 1-100）の分析
-  - アンステーク優先度上位バリデータ（Top 100）の分析
-  - 全体サマリー（増加量・減少量）
+## 分析結果
 
-## Slack通知
+分析結果には以下の情報が含まれます：
 
-GitHub Actionsワークフロー実行時に以下の通知が送信されます：
-- 分析完了時: 分析結果へのリンクを含む成功通知
-- 更新なし時: データ更新なしの通知
-- エラー発生時: エラー詳細へのリンクを含む失敗通知
+- 全体サマリー（ステーク増減の合計）
+- ステーク優先度の高いバリデーターの変更
+- アンステーク優先度の高いバリデーターの変更
+
+## 注意事項
+
+- GitHub Actionsによる自動実行は現在無効化されています
+- 分析は手動で実行する必要があります
+- upstreamリポジトリからの更新は `auctions` ディレクトリのみを対象としています

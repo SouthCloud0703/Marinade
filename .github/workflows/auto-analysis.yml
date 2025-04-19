@@ -1,9 +1,11 @@
-name: 自動分析ワークフロー
+# このワークフローは一時的に無効化されています
+name: 自動分析ワークフロー（無効）
 
-on:
-  schedule:
-    - cron: '0 */6 * * *'  # 6時間ごとに実行
-  workflow_dispatch:  # 手動実行も可能
+# 一時的にトリガーをコメントアウト
+# on:
+#   schedule:
+#     - cron: '0 */6 * * *'
+#   workflow_dispatch:
 
 jobs:
   check-and-analyze:
