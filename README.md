@@ -10,13 +10,18 @@ git clone https://github.com/SouthCloud0703/Marinade.git
 cd Marinade
 ```
 
-2. 仮想環境のセットアップ
+2. upstreamリポジトリの設定
+```bash
+git remote add upstream https://github.com/marinade-finance/ds-sam-pipeline.git
+```
+
+3. 仮想環境のセットアップ
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 ```
 
-3. 依存パッケージのインストール
+4. 依存パッケージのインストール
 ```bash
 pip install -r requirements.txt
 ```
