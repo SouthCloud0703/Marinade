@@ -21,7 +21,7 @@ def format_sol(value):
 def generate_markdown_summary(df_stake: pd.DataFrame, df_unstake: pd.DataFrame, epoch: int) -> str:
     """分析結果のMarkdownサマリーを生成"""
     jst = pytz.timezone('Asia/Tokyo')
-    now = datetime.now(jst).strftime("%Y-%m-%d %H:%M:%S")
+    now = datetime.now(jst).strftime("%Y-%m-%d %H:%M:%S JST")
     
     # 合計値の計算
     total_stake_increase = 0
@@ -175,33 +175,45 @@ def create_validator_dataframe(validators: List[str], data_current: Dict, data_n
 
         if validator_current and validator_next:
             try:
-                # Noneチェックを追加
+                # データの取得と検証
                 marinadeActivatedStakeSol_current = validator_current.get('marinadeActivatedStakeSol')
                 marinadeActivatedStakeSol_next = validator_next.get('marinadeActivatedStakeSol')
                 marinadeSamTargetSol = validator_current.get('auctionStake', {}).get('marinadeSamTargetSol')
-                
-                if marinadeActivatedStakeSol_current is None or marinadeActivatedStakeSol_next is None or marinadeSamTargetSol is None:
-                    print(f"Warning: Missing data for validator {vote_account}")
-                    continue
-                
-                stake_current = float(marinadeActivatedStakeSol_current)
-                stake_next = float(marinadeActivatedStakeSol_next)
-                stake_change = stake_next - stake_current
+                stakePriority = validator_current.get('stakePriority', 0)
+                totalActivatedStakeSol = validator_current.get('totalActivatedStakeSol', 0)
+                bondBalanceSol = validator_current.get('bondBalanceSol', 0)
+                bidCpmpe = validator_current.get('bidCpmpe', 0)
+                totalPmpe = validator_current.get('revShare', {}).get('totalPmpe', 0)
 
-                results.append({
-                    'voteAccount': vote_account,
-                    'stakePriority': float(validator_current.get('stakePriority', 0)),
-                    'totalActivatedStakeSol': float(validator_current.get('totalActivatedStakeSol', 0)),
-                    'bondBalanceSol': float(validator_current.get('bondBalanceSol', 0)),
-                    'bidCpmpe': float(validator_current.get('bidCpmpe', 0)),
-                    'totalPmpe': float(validator_current.get('revShare', {}).get('totalPmpe', 0)),
-                    f'marinadeStake_{epoch}': stake_current,
-                    f'marinadeStake_{epoch+1}': float(marinadeSamTargetSol),
-                    'stakeChange': stake_change,
-                    'stakeChangeAbs': abs(stake_change)
-                })
-            except (ValueError, TypeError) as e:
-                print(f"Warning: Error processing data for validator {vote_account}: {str(e)}")
+                # 必須データの検証
+                if any(v is None for v in [marinadeActivatedStakeSol_current, marinadeActivatedStakeSol_next, marinadeSamTargetSol]):
+                    print(f"Warning: Missing required data for validator {vote_account}, skipping...")
+                    continue
+
+                # 数値への変換
+                try:
+                    stake_current = float(marinadeActivatedStakeSol_current)
+                    stake_next = float(marinadeActivatedStakeSol_next)
+                    stake_change = stake_next - stake_current
+
+                    results.append({
+                        'voteAccount': vote_account,
+                        'stakePriority': float(stakePriority or 0),
+                        'totalActivatedStakeSol': float(totalActivatedStakeSol or 0),
+                        'bondBalanceSol': float(bondBalanceSol or 0),
+                        'bidCpmpe': float(bidCpmpe or 0),
+                        'totalPmpe': float(totalPmpe or 0),
+                        f'marinadeStake_{epoch}': stake_current,
+                        f'marinadeStake_{epoch+1}': float(marinadeSamTargetSol),
+                        'stakeChange': stake_change,
+                        'stakeChangeAbs': abs(stake_change)
+                    })
+                except (ValueError, TypeError) as e:
+                    print(f"Warning: Error converting data for validator {vote_account}, skipping... Error: {str(e)}")
+                    continue
+
+            except Exception as e:
+                print(f"Warning: Unexpected error processing data for validator {vote_account}, skipping... Error: {str(e)}")
                 continue
 
     if not results:
